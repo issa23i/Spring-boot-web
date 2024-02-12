@@ -1,0 +1,10 @@
+/universidad-backend/target/classes/application.properties
+*.class
+*.properties
+.gitignore
+.idea
+compiler.xml
+encodings.xml
+jarRepositories.xml
+misc.xml
+

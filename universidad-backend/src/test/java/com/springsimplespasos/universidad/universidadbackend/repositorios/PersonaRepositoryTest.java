@@ -1,6 +1,5 @@
 package com.springsimplespasos.universidad.universidadbackend.repositorios;
 
-import com.springsimplespasos.universidad.universidadbackend.datos.DatosDummy;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Empleado;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Persona;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Profesor;
@@ -15,7 +14,6 @@ import java.util.Optional;
 
 import static com.springsimplespasos.universidad.universidadbackend.datos.DatosDummy.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class PersonaRepositoryTest {
@@ -36,7 +34,7 @@ class PersonaRepositoryTest {
         Persona save = empleadoRepository.save(empleado01());
 
         //When
-        Optional<Persona> expected = empleadoRepository.buscarPorNombreYApellido(empleado01().getNombre(),
+        Optional<Persona> expected = empleadoRepository.findFirstByNombreAndApellido(empleado01().getNombre(),
                 empleado01().getApellido());
 
         //Then

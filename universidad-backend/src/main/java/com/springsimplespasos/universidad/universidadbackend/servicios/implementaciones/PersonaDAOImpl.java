@@ -15,8 +15,8 @@ public class PersonaDAOImpl extends GenericoDAOImpl<Persona, PersonaRepository> 
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Persona> buscarPorNombreYApellido(String nombre, String apellido) {
-        return repository.buscarPorNombreYApellido(nombre, apellido);
+    public Optional<Persona> findFirstByNombreAndApellido(String nombre, String apellido) {
+        return repository.findFirstByNombreAndApellido(nombre, apellido);
     }
 
     @Override

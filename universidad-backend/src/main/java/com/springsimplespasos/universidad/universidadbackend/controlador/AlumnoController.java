@@ -56,7 +56,7 @@ public class AlumnoController extends PersonaController {
         }
         return alumnos;
     }
-*/
+
     @PutMapping("/{id}")
     public Persona actualizarAlumno(@PathVariable Integer id, @RequestBody Persona alumno){
         Persona alumnoUpdate = null;
@@ -67,7 +67,7 @@ public class AlumnoController extends PersonaController {
         alumnoUpdate.setApellido(alumno.getApellido());
         alumnoUpdate.setDireccion(alumno.getDireccion());
         return service.save(alumnoUpdate);
-    }
+    }*/
 /*
     @DeleteMapping("/{id}")
     public void eliminarAlumno (@PathVariable Integer id){

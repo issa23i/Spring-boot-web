@@ -8,19 +8,20 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table(name = "personas")
-@Inheritance(strategy = InheritanceType.JOINED)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "tipo"
-)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Alumno.class, name = "alumno"),
-        @JsonSubTypes.Type(value = Profesor.class, name = "profesor")
-})
-public abstract class Persona implements Serializable {
+    @Entity
+    @Table(name = "personas")
+    @Inheritance(strategy = InheritanceType.JOINED)
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.PROPERTY,
+            property = "tipo"
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = Alumno.class, name = "alumno"),
+            @JsonSubTypes.Type(value = Profesor.class, name = "profesor"),
+            @JsonSubTypes.Type(value = Empleado.class, name = "empleado")
+    })
+    public abstract class Persona implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

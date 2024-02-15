@@ -1,7 +1,6 @@
 package com.springsimplespasos.universidad.universidadbackend.controlador;
 
 import com.springsimplespasos.universidad.universidadbackend.exceptions.BadRequestException;
-import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Alumno;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Carrera;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Persona;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Profesor;

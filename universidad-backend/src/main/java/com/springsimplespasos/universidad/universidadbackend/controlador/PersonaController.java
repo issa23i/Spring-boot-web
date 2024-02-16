@@ -37,7 +37,7 @@ public class PersonaController extends GenericController<Persona, PersonaDAO> {
         if(persona.isEmpty()) throw new BadRequestException(String.format("No se encontraron %ss con el dni %s.", nombreEntidad.toLowerCase(), dni));
         return persona.get();
     }
-
+/**
     @PutMapping("/{id}")
     public Persona actualizarPersona(@PathVariable Integer id, @RequestBody Persona p){
         Persona pUpdate = null;
@@ -80,7 +80,7 @@ public class PersonaController extends GenericController<Persona, PersonaDAO> {
         return service.save(pUpdate);
 
     }
-
+*/
     @Override
     @GetMapping
     public List<Persona> obtenerTodos(){

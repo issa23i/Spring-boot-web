@@ -41,7 +41,7 @@ public class CarreraController extends GenericController<Carrera, CarreraDAO> {
             throw new BadRequestException("El campo cantidad de materias debe ser mayor a 0");
         }
         return service.save(carrera);
-    }*/
+    }
 
     @PutMapping("/{id}")
     public Carrera actualizarCarrera (@PathVariable Integer id, @RequestBody Carrera carrera){
@@ -56,7 +56,7 @@ public class CarreraController extends GenericController<Carrera, CarreraDAO> {
 
         return service.save(carreraUpdate);
     }
-/*
+*//*
     @DeleteMapping("/{id}")
     public void eliminarCarrera (@PathVariable Integer id){
         service.deleteById(id);

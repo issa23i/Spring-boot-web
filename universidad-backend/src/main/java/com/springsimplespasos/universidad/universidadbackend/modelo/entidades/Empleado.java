@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Empleado extends Persona {
 
+    @Column
     private BigDecimal sueldo;
     @Column(name = "tipo_empleado")
     @Enumerated(EnumType.STRING)

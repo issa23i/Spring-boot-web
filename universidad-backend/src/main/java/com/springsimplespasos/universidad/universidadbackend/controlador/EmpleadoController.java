@@ -27,8 +27,8 @@ public class EmpleadoController extends PersonaController{
         nombreEntidad = "Empleado";
     }
 
-    @GetMapping("/{tipoEmpleado}")
-    public Iterable<Persona> findEmpleadoByTipoEmpleado(String tipoEmpleado){
+    @GetMapping("/tipoempleado/{tipoEmpleado}")
+    public Iterable<Persona> findEmpleadoByTipoEmpleado(@PathVariable String tipoEmpleado){
         
         Iterable<Persona> empleados = ((EmpleadoDAOImpl)service).findEmpleadoByTipoEmpleado(tipoEmpleado);
         List<Persona> listaEmpleados = (List<Persona>) empleados;

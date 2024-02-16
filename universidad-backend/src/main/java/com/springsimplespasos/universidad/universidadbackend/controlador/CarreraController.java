@@ -6,8 +6,11 @@ import com.springsimplespasos.universidad.universidadbackend.servicios.contratos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/carreras")
@@ -31,6 +34,23 @@ public class CarreraController extends GenericController<Carrera, CarreraDAO> {
         }
         return oCarrera.get();
     }
+
+    @GetMapping("/nombre/{nombre}")
+    public Iterable<Carrera> optenerPorNombre(@PathVariable(value = "nombre", required = false) String nombre){
+        Iterable<Carrera> carreras = service.findCarrerasByNombreContainsIgnoreCase(nombre);
+        List<Carrera> carreraList = (List<Carrera>) carreras;
+        if(carreraList.isEmpty()) throw new BadRequestException(String.format("No existen %ss con el nombre %s.", nombreEntidad.toLowerCase(),nombre));
+        return carreras;
+    }
+
+    @GetMapping("/profesores/nombre-apellido")
+    public Iterable<Carrera> obtenerPorProfesorNombreYApellido(@RequestParam String nombre, @RequestParam String apellido){
+        Iterable<Carrera> carreras = service.findCarrerasByProfesorNombreAndApellidoIgnoreCase(nombre,apellido);
+        List<Carrera> carreraList = (List<Carrera>) carreras;
+        if(carreraList.isEmpty()) throw new BadRequestException(String.format("No existen %ss con el profesor %s %s.", nombreEntidad.toLowerCase(),nombre, apellido));
+        return carreras;
+    }
+
 
     /*@PostMapping
     public Carrera altaCarrera(@RequestBody Carrera carrera){

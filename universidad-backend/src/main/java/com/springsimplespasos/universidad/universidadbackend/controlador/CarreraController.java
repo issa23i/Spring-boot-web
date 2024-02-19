@@ -26,7 +26,7 @@ public class CarreraController extends GenericController<Carrera, CarreraDAO> {
         nombreEntidad = "Carrera";
     }
 
-
+/*
 
     @GetMapping("/{codigo}")
     public Carrera obtenerPorId(@PathVariable(value = "codigo", required = false) Integer id){
@@ -35,7 +35,7 @@ public class CarreraController extends GenericController<Carrera, CarreraDAO> {
             throw new BadRequestException(String.format("La carrera con id %d no existe", id));
         }
         return oCarrera.get();
-    }
+    }*/
 
     @GetMapping("/nombre/{nombre}")
     public Iterable<Carrera> optenerPorNombre(@PathVariable(value = "nombre", required = false) String nombre){

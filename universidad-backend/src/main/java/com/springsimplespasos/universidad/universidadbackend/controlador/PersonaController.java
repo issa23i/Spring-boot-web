@@ -35,18 +35,36 @@ public class PersonaController extends GenericController<Persona, PersonaDAO> {
     }
 
     @GetMapping("/apellido")
-    public Iterable<Persona> buscarPersonaPorApellido(@RequestParam String apellido){
+    public ResponseEntity<?> buscarPersonaPorApellido(@RequestParam String apellido){
+        Map<String, Object> mensaje = new HashMap<>();
         Iterable<Persona> personas = service.buscarPersonaPorApellido(apellido);
         boolean noExistenPersonas = ((List<Persona>) personas).isEmpty();
-        if(noExistenPersonas) throw new BadRequestException(String.format("No se encontraron %ss con el apellido %s.", nombreEntidad.toLowerCase(), apellido));
-        return personas;
+        if(noExistenPersonas) {
+            //throw new BadRequestException(String.format("No se encontraron %ss con el apellido %s.", nombreEntidad.toLowerCase(), apellido));
+            mensaje.put("success", Boolean.FALSE);
+            mensaje.put("mensaje", String.format("No se encontraron %ss con el apellido %s.", nombreEntidad.toLowerCase(), apellido));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
+        //return personas;
+        mensaje.put("success", Boolean.TRUE);
+        mensaje.put("datos", personas);
+        return ResponseEntity.ok(mensaje);
     }
 
     @GetMapping("/dni")
-    public Persona buscarPersonaPorDni(@RequestParam String dni){
+    public ResponseEntity<?> buscarPersonaPorDni(@RequestParam String dni){
+        Map<String, Object> mensaje = new HashMap<>();
         Optional<Persona> persona = service.buscarPorDni(dni);
-        if(persona.isEmpty()) throw new BadRequestException(String.format("No se encontraron %ss con el dni %s.", nombreEntidad.toLowerCase(), dni));
-        return persona.get();
+        if(persona.isEmpty()) {
+            //throw new BadRequestException(String.format("No se encontraron %ss con el dni %s.", nombreEntidad.toLowerCase(), dni));
+            mensaje.put("success", Boolean.FALSE);
+            mensaje.put("mensaje", String.format("No se encontraron %ss con el dni %s.", nombreEntidad.toLowerCase(), dni));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
+        //return persona.get();
+        mensaje.put("success", Boolean.TRUE);
+        mensaje.put("datos", persona.get());
+        return ResponseEntity.ok(mensaje);
     }
 /**
     @PutMapping("/{id}")

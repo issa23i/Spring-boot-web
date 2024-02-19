@@ -1,6 +1,7 @@
 package com.springsimplespasos.universidad.universidadbackend.servicios.implementaciones;
 
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Aula;
+import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.enumeradores.Pizarron;
 import com.springsimplespasos.universidad.universidadbackend.repositorios.AulaRepository;
 import com.springsimplespasos.universidad.universidadbackend.servicios.contratos.AulaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class AulaDAOImpl extends GenericoDAOImpl<Aula, AulaRepository> implement
     }
 
     @Override
-    public Iterable<Aula> findAulasByPizarron(String pizarron) {
+    public Iterable<Aula> findAulasByPizarron(Pizarron pizarron) {
         return repository.findAulasByPizarron(pizarron);
     }
 }

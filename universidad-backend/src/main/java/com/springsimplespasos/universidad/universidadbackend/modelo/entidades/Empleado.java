@@ -3,6 +3,9 @@ package com.springsimplespasos.universidad.universidadbackend.modelo.entidades;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.enumeradores.TipoEmpleado;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Entity
@@ -10,6 +13,8 @@ import java.math.BigDecimal;
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Empleado extends Persona {
 
+    @Positive
+    @DecimalMin(value = "1071.72", message = "El mínimo es el SMI")
     @Column
     private BigDecimal sueldo;
     @Column(name = "tipo_empleado")

@@ -3,6 +3,7 @@ package com.springsimplespasos.universidad.universidadbackend.modelo.entidades;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.enumeradores.Pizarron;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,6 +15,7 @@ public class Aula implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Positive
     @Column(name = "numero_aula", nullable = false)
     private Integer nroAula;
     @Column(name = "medidas_mtsxmts")

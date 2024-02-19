@@ -46,10 +46,18 @@ public class GenericController<E, S extends GenericoDAO<E>> {
     }
 
     @GetMapping("/{id}")
-    public E obtenerPorId(@PathVariable Integer id) {
+    public ResponseEntity<?> obtenerPorId(@PathVariable Integer id) {
+        Map<String, Object> mensaje = new HashMap<>();
         Optional<E> optionalE = service.findById(id);
-        if (optionalE.isEmpty()) throw new BadRequestException(String.format("No se ha encontrado %s", nombreEntidad));
-        return optionalE.get();
+        if (optionalE.isEmpty()) {
+            //throw new BadRequestException(String.format("No se ha encontrado %s", nombreEntidad));
+            mensaje.put("success", Boolean.FALSE);
+            mensaje.put("mensaje", String.format("No se han encontrado %ss", nombreEntidad));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
+        mensaje.put("success", Boolean.TRUE);
+        mensaje.put("datos", optionalE.get());
+        return ResponseEntity.ok(mensaje);
     }
 
 

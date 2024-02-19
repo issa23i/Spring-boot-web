@@ -7,5 +7,9 @@ compiler.xml
 encodings.xml
 jarRepositories.xml
 misc.xml
-
+*.lst
+*.java
 /universidad-backend/universidad-backend.iml
+/universidad-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/universidad-backend/target/generated-sources/annotations/com/springsimplespasos/universidad/universidadbackend/modelo/mapper/mapstruct/CarreraMapperMSImpl.java
+/universidad-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst

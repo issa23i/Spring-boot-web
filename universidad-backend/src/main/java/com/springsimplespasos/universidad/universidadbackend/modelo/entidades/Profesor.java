@@ -16,7 +16,7 @@ public class Profesor extends Persona {
     @DecimalMin(value = "1071.72", message = "El mínimo es el SMI")
     @Column
     private BigDecimal sueldo;
-    @JsonIgnore
+
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {

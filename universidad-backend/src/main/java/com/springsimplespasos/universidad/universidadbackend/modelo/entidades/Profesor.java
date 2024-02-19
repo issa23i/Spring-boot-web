@@ -12,8 +12,7 @@ import java.util.Set;
 @Table(name = "profesores")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Profesor extends Persona {
-    @Positive
-    @DecimalMin(value = "1071.72", message = "El mínimo es el SMI")
+
     @Column
     private BigDecimal sueldo;
 

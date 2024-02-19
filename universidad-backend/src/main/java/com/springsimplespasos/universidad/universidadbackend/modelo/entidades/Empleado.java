@@ -13,8 +13,7 @@ import java.math.BigDecimal;
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Empleado extends Persona {
 
-    @Positive
-    @DecimalMin(value = "1071.72", message = "El mínimo es el SMI")
+
     @Column
     private BigDecimal sueldo;
     @Column(name = "tipo_empleado")

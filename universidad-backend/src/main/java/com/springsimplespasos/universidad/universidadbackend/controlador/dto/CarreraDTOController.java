@@ -3,6 +3,7 @@ package com.springsimplespasos.universidad.universidadbackend.controlador.dto;
 import com.springsimplespasos.universidad.universidadbackend.modelo.dto.CarreraDTO;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Carrera;
 import com.springsimplespasos.universidad.universidadbackend.modelo.mapper.CarreraMapper;
+import com.springsimplespasos.universidad.universidadbackend.modelo.mapper.mapstruct.CarreraMapperMS;
 import com.springsimplespasos.universidad.universidadbackend.servicios.contratos.CarreraDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 public class CarreraDTOController {
     @Autowired
     private CarreraDAO carreraDAO;
+    @Autowired
+    private CarreraMapperMS mapper;
 
     @GetMapping
     public ResponseEntity<?> obtenerTodos(){
@@ -29,7 +32,7 @@ public class CarreraDTOController {
         List<Carrera> carreras = (List<Carrera>) carreraDAO.findAll();
         List<CarreraDTO> carreraDTOS = carreras
                 .stream()
-                .map(CarreraMapper::mapCarrera)
+                .map(mapper::mapCarrera)
                 .collect(Collectors.toList());
         mensaje.put("success", Boolean.TRUE);
         mensaje.put("data", carreraDTOS);

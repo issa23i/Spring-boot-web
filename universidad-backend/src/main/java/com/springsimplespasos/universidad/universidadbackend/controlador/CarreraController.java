@@ -4,13 +4,15 @@ import com.springsimplespasos.universidad.universidadbackend.exceptions.BadReque
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Carrera;
 import com.springsimplespasos.universidad.universidadbackend.servicios.contratos.CarreraDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/carreras")
@@ -51,16 +53,25 @@ public class CarreraController extends GenericController<Carrera, CarreraDAO> {
         return carreras;
     }
 
+    /*
+        @PostMapping
+        public ResponseEntity<?> altaCarrera(@Valid @RequestBody Carrera carrera, BindingResult result){
+            /**if(carrera.getCantidadAnios()<1){
+                throw new BadRequestException("El campo cantidad de anyos debe ser mayor a 0");
+            }
+            if(carrera.getCantidaMaterias()<1){
+                throw new BadRequestException("El campo cantidad de materias debe ser mayor a 0");
+            }*//*
+        Map<String, Object> validaciones = new HashMap<>();
+        if(result.hasErrors()){
+            result.getFieldErrors()
+                    .forEach(error -> validaciones.put(error.getField(),error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(validaciones);
+        }
 
-    /*@PostMapping
-    public Carrera altaCarrera(@RequestBody Carrera carrera){
-        if(carrera.getCantidadAnios()<1){
-            throw new BadRequestException("El campo cantidad de anyos debe ser mayor a 0");
-        }
-        if(carrera.getCantidaMaterias()<1){
-            throw new BadRequestException("El campo cantidad de materias debe ser mayor a 0");
-        }
-        return service.save(carrera);
+        validaciones.put("success", Boolean.TRUE);
+        validaciones.put("datos",service.save(carrera));
+        return ResponseEntity.ok(validaciones);
     }
 
     @PutMapping("/{id}")

@@ -8,9 +8,12 @@ import com.springsimplespasos.universidad.universidadbackend.servicios.contratos
 import com.springsimplespasos.universidad.universidadbackend.servicios.contratos.PersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -75,18 +78,31 @@ public class AlumnoController extends PersonaController {
     }*/
 
     @PutMapping("/{idAlumno}/carrera/{idCarrera}")
-    public Persona asignarCarreraAlumno(@PathVariable Integer idAlumno, @PathVariable Integer idCarrera){
+    public ResponseEntity<?> asignarCarreraAlumno(@PathVariable Integer idAlumno, @PathVariable Integer idCarrera){
+        Map<String, Object> mensaje = new HashMap<>();
         Optional<Persona> optionalAlumno = service.findById(idAlumno);
-        if(optionalAlumno.isEmpty()) throw new BadRequestException(String.format("Alumno con id %d no existe", idAlumno));
+        if(optionalAlumno.isEmpty()) {
+            //throw new BadRequestException(String.format("Alumno con id %d no existe", idAlumno));
+            mensaje.put("success", false);
+            mensaje.put("mensaje", String.format("Alumno con id %d no existe", idAlumno));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
         Optional<Carrera> optionalCarrera = carreraDAO.findById(idCarrera);
-        if(optionalCarrera.isEmpty()) throw new BadRequestException(String.format("La carrera con id %d no existe", idCarrera));
+        if(optionalCarrera.isEmpty()) {
+            //throw new BadRequestException(String.format("La carrera con id %d no existe", idCarrera));
+            mensaje.put("success", false);
+            mensaje.put("mensaje", String.format("La carrera con id %d no existe", idCarrera));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
 
         Persona alumno = optionalAlumno.get();
         Carrera carrera = optionalCarrera.get();
 
         ((Alumno)alumno).setCarrera(carrera);
 
-        return service.save(alumno);
+        mensaje.put("success", Boolean.TRUE);
+        mensaje.put("datos",service.save(alumno));
+        return ResponseEntity.ok(mensaje);
     }
 
 }

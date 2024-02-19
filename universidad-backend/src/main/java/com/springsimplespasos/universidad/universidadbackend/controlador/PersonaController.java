@@ -3,11 +3,14 @@ package com.springsimplespasos.universidad.universidadbackend.controlador;
 import com.springsimplespasos.universidad.universidadbackend.exceptions.BadRequestException;
 import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Persona;
 import com.springsimplespasos.universidad.universidadbackend.servicios.contratos.PersonaDAO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Column;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class PersonaController extends GenericController<Persona, PersonaDAO> {
@@ -17,10 +20,18 @@ public class PersonaController extends GenericController<Persona, PersonaDAO> {
     }
 
     @GetMapping("/nombre-apellido")
-    public Persona buscarPersonaPorNombreYApellido(@RequestParam String nombre, @RequestParam String apellido){
+    public ResponseEntity<?> buscarPersonaPorNombreYApellido(@RequestParam String nombre, @RequestParam String apellido){
+        Map<String, Object> mensaje = new HashMap<>();
         Optional<Persona> optionalPersona = service.findFirstByNombreAndApellido(nombre, apellido);
-        if(optionalPersona.isEmpty()) throw new RuntimeException(String.format("No se encontró %s con nombre %s y apellido %s",nombreEntidad.toLowerCase(), nombre, apellido));
-        return optionalPersona.get();
+        if(optionalPersona.isEmpty()) {
+            //throw new RuntimeException(String.format("No se encontró %s con nombre %s y apellido %s",nombreEntidad.toLowerCase(), nombre, apellido));
+            mensaje.put("success", false);
+            mensaje.put("mensaje", String.format("No se encontró %s con nombre %s y apellido %s",nombreEntidad.toLowerCase(), nombre, apellido));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
+        mensaje.put("success", Boolean.TRUE);
+        mensaje.put("datos",optionalPersona.get());
+        return ResponseEntity.ok(mensaje);
     }
 
     @GetMapping("/apellido")
@@ -83,11 +94,19 @@ public class PersonaController extends GenericController<Persona, PersonaDAO> {
 */
     @Override
     @GetMapping
-    public List<Persona> obtenerTodos(){
+    public ResponseEntity<?> obtenerTodos(){
         List<Persona> listado = (List<Persona>) service.findAll();
-        if(listado.isEmpty()) throw new BadRequestException(String.format("No se han encontrado %ss", nombreEntidad));
+        Map<String, Object> mensaje = new HashMap<>();
+        if(listado.isEmpty()) {
+            //throw new BadRequestException(String.format("No se han encontrado %ss", nombreEntidad));
+            mensaje.put("success", Boolean.FALSE);
+            mensaje.put("mensaje", String.format("No se han encontrado %ss", nombreEntidad));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
         listado.removeIf(p -> !p.getClass().getSimpleName().equals(nombreEntidad));
-        return listado;
+        mensaje.put("success", Boolean.TRUE);
+        mensaje.put("datos", listado);
+        return ResponseEntity.ok(mensaje);
     }
 
 }

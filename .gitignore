@@ -9,7 +9,9 @@ jarRepositories.xml
 misc.xml
 *.lst
 *.java
+*.log
 /universidad-backend/universidad-backend.iml
 /universidad-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 /universidad-backend/target/generated-sources/annotations/com/springsimplespasos/universidad/universidadbackend/modelo/mapper/mapstruct/CarreraMapperMSImpl.java
 /universidad-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/logs/universidad-log.log

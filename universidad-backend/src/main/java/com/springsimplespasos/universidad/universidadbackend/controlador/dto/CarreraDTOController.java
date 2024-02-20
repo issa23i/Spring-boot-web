@@ -5,12 +5,11 @@ import com.springsimplespasos.universidad.universidadbackend.modelo.entidades.Ca
 import com.springsimplespasos.universidad.universidadbackend.modelo.mapper.CarreraMapper;
 import com.springsimplespasos.universidad.universidadbackend.modelo.mapper.mapstruct.CarreraMapperMS;
 import com.springsimplespasos.universidad.universidadbackend.servicios.contratos.CarreraDAO;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/carreras")
 @ConditionalOnProperty(prefix = "app", name = "controller.enable-dto", havingValue = "true")
+@Api(value = "Acciones relacionadas con las carreras", tags = "Acciones sobre carreras")
 public class CarreraDTOController extends GenericDTOController<Carrera, CarreraDAO> {
 
     @Autowired
@@ -30,6 +30,12 @@ public class CarreraDTOController extends GenericDTOController<Carrera, CarreraD
     }
 
     @GetMapping
+    @ApiOperation(value = "Consultar todas las carreras")
+    @ApiResponses(
+            {
+                    @ApiResponse(code = 200, message = "Ejecutado satisfactoriamente")
+            }
+    )
     public ResponseEntity<?> obtenerCarreras(){
         Map<String,Object> mensaje = new HashMap<>();
 
@@ -48,5 +54,17 @@ public class CarreraDTOController extends GenericDTOController<Carrera, CarreraD
         mensaje.put("success", Boolean.TRUE);
         mensaje.put("data", carreraDTOS);
         return ResponseEntity.ok(mensaje);
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Consultar carrera por código")
+    public ResponseEntity<?> obtenerCarreraPorId(@PathVariable @ApiParam(name = "Código del sistema") Integer id){
+        return ResponseEntity.ok("");
+    }
+
+    @PostMapping
+    @ApiOperation(value = "Dar de alta una nueva carrera")
+    public ResponseEntity<?> altaCarrera(@RequestBody @ApiParam(name = "Carrera de la universidad") CarreraDTO carreraDTO){
+        return ResponseEntity.ok("");
     }
 }

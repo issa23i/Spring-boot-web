@@ -8,7 +8,6 @@ encodings.xml
 jarRepositories.xml
 misc.xml
 *.lst
-*.java
 *.log
 /universidad-backend/universidad-backend.iml
 /universidad-backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst

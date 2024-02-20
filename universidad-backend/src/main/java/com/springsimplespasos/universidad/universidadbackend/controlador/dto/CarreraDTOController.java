@@ -20,16 +20,27 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/carreras")
 @ConditionalOnProperty(prefix = "app", name = "controller.enable-dto", havingValue = "true")
-public class CarreraDTOController {
-    @Autowired
-    private CarreraDAO carreraDAO;
+public class CarreraDTOController extends GenericDTOController<Carrera, CarreraDAO> {
+
     @Autowired
     private CarreraMapperMS mapper;
 
+    public CarreraDTOController(CarreraDAO service) {
+        super(service, "Carrera");
+    }
+
     @GetMapping
-    public ResponseEntity<?> obtenerTodos(){
+    public ResponseEntity<?> obtenerCarreras(){
         Map<String,Object> mensaje = new HashMap<>();
-        List<Carrera> carreras = (List<Carrera>) carreraDAO.findAll();
+
+        List<Carrera> carreras = super.obtenerTodos();
+
+        if(carreras.isEmpty()){
+            mensaje.put("success",Boolean.FALSE);
+            mensaje.put("mensaje", String.format("No se encontraron %ss cargados", nombre_entidad));
+            return ResponseEntity.badRequest().body(mensaje);
+        }
+
         List<CarreraDTO> carreraDTOS = carreras
                 .stream()
                 .map(mapper::mapCarrera)

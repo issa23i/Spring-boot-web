@@ -1,0 +1,13 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/universidad
+spring.datasource.username=postgres
+spring.datasource.password=1234567
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+#Costum server Tomcat
+server.port=9081
+server.connection-timeout=5s
+server.tomcat.thread.max=200
+server.error.include-message=always
+server.servlet.context-path=/api/v2/universidad
+
+app.controller.enable-dto=true
